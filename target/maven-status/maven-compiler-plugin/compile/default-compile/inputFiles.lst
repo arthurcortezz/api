@@ -1,0 +1,9 @@
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/config/WebSecurityConfig.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/service/UserService.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/exception/EmailAlreadyExistsException.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/entity/UserEntity.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/controller/AuthController.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/JavaProjectApplication.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/service/EmailService.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/repository/UserRepository.java
+/home/arthur/Documents/Projects/projeto/api/src/main/java/com/arthurcortez/javaproject/dto/AuthenticationRequest.java
