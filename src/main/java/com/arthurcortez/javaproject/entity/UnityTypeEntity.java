@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class UnitTypeEntity {
+public class UnityTypeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -32,7 +32,7 @@ public class UnitTypeEntity {
     @LastModifiedDate
     private ZonedDateTime updatedAt;
 
-    public UnitTypeEntity(String name, String email, String password, UserRoleEntity role) {
+    public UnityTypeEntity(String name, String email, String password, UserRoleEntity role) {
         this.name = name;
     }
 }

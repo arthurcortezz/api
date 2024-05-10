@@ -2,18 +2,18 @@ package com.arthurcortez.javaproject.dto;
 
 import java.util.List;
 
-import com.arthurcortez.javaproject.entity.UnitTypeEntity;
+import com.arthurcortez.javaproject.entity.UnityTypeEntity;
 
 public class UnityTypePaginatedInterfaceDto {
 
-    private List<UnitTypeEntity> rows;
+    private List<UnityTypeEntity> rows;
     private long count;
 
-    public List<UnitTypeEntity> getRows() {
+    public List<UnityTypeEntity> getRows() {
         return rows;
     }
 
-    public void setRows(List<UnitTypeEntity> rows) {
+    public void setRows(List<UnityTypeEntity> rows) {
         this.rows = rows;
     }
 

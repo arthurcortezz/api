@@ -1,6 +1,6 @@
 package com.arthurcortez.javaproject.controller;
 
-import com.arthurcortez.javaproject.entity.UnitTypeEntity;
+import com.arthurcortez.javaproject.entity.UnityTypeEntity;
 import com.arthurcortez.javaproject.service.UnityTypeService;
 
 import jakarta.validation.Valid;
@@ -31,7 +31,7 @@ public class UnityTypeController {
 
     @GetMapping("/list")
     public UnityTypePaginatedInterfaceDto findAllRecipes(Pageable pageable) {
-        Page<UnitTypeEntity> recipesPage = service.findAllUnitTypes(pageable);
+        Page<UnityTypeEntity> recipesPage = service.findAllUnitTypes(pageable);
 
         UnityTypePaginatedInterfaceDto recipePaginatedInterface = new UnityTypePaginatedInterfaceDto();
         recipePaginatedInterface.setRows(recipesPage.getContent());
@@ -41,7 +41,7 @@ public class UnityTypeController {
     }
 
     @GetMapping("/{id}")
-    public UnitTypeEntity findUnityTypeById(@PathVariable("id") String id) {
+    public UnityTypeEntity findUnityTypeById(@PathVariable("id") String id) {
         return service.findUnityTypeById(id);
     }
 
