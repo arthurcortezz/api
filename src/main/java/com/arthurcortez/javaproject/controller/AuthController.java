@@ -77,7 +77,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> register(@RequestBody @Valid RegisterDTO data) {
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
         if (this.userRepository.findByEmail(data.email()) != null)
             return ResponseEntity.badRequest().build();
 
@@ -86,7 +86,11 @@ public class AuthController {
 
         this.userRepository.save(newUser);
 
-        return ResponseEntity.ok().build();
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+        var token = tokenService.generateToken((UserEntity) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDto(token, auth));
     }
 
     class ErrorResponse {
