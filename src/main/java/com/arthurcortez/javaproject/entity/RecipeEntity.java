@@ -32,13 +32,17 @@ public class RecipeEntity {
     @JoinColumn(name = "recipe_id")
     private List<IngredientEntity> ingredients = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity category;
+
     @CreatedDate
     private ZonedDateTime createdAt;
 
     @LastModifiedDate
     private ZonedDateTime updatedAt;
 
-    public RecipeEntity(String name, String description) {
+    public RecipeEntity(String name, String description, CategoryEntity category) {
         this.name = name;
         this.description = description;
     }

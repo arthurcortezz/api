@@ -1,9 +1,11 @@
 package com.arthurcortez.javaproject.service;
 
 import com.arthurcortez.javaproject.dto.CreateRecipeDto;
+import com.arthurcortez.javaproject.entity.CategoryEntity;
 import com.arthurcortez.javaproject.entity.IngredientEntity;
 import com.arthurcortez.javaproject.entity.RecipeEntity;
 import com.arthurcortez.javaproject.entity.UnityTypeEntity;
+import com.arthurcortez.javaproject.repository.CategoryRepository;
 import com.arthurcortez.javaproject.repository.RecipeRepository;
 import com.arthurcortez.javaproject.repository.UnityTypeRepository;
 
@@ -27,8 +29,15 @@ public class RecipeService {
     @Autowired
     private UnityTypeRepository unityTypeRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     public Page<RecipeEntity> findAllRecipes(Pageable pageable) {
         return recipeRepository.findAll(pageable);
+    }
+
+    public RecipeEntity findRecipeById(String id) {
+        return recipeRepository.findById(id).orElse(null);
     }
 
     public RecipeEntity createRecipe(CreateRecipeDto recipe) {
@@ -36,6 +45,10 @@ public class RecipeService {
 
         recipeEntity.setName(recipe.name());
         recipeEntity.setDescription(recipe.description());
+        CategoryEntity category = categoryRepository.findById(recipe.category())
+                .orElseThrow(() -> new RuntimeException("CategoryEntity not found"));
+        ;
+        recipeEntity.setCategory(category);
         recipeEntity.setCreatedAt(ZonedDateTime.now(ZoneId.of("UTC")));
         recipeEntity.setUpdatedAt(ZonedDateTime.now(ZoneId.of("UTC")));
 
