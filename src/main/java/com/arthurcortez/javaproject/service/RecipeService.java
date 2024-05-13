@@ -9,7 +9,6 @@ import com.arthurcortez.javaproject.entity.IngredientEntity;
 import com.arthurcortez.javaproject.repository.RecipeRepository;
 import com.arthurcortez.javaproject.repository.CategoryRepository;
 import com.arthurcortez.javaproject.repository.UnityTypeRepository;
-import com.arthurcortez.javaproject.repository.IngredientRepository;
 
 import org.springframework.stereotype.Service;
 
