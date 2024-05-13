@@ -17,15 +17,15 @@ public class IngredientEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-    private Integer unitValue;
+    private Integer unityValue;
 
     @ManyToOne
     @JoinColumn(name = "unity_type")
     private UnityTypeEntity unityType;
 
-    public IngredientEntity(String name, Integer unitValue) {
+    public IngredientEntity(String name, Integer unityValue) {
         this.name = name;
-        this.unitValue = unitValue;
+        this.unityValue = unityValue;
     }
 
     public void setUnityType(UnityTypeEntity unityType) {

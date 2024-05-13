@@ -1,21 +1,23 @@
 package com.arthurcortez.javaproject.controller;
 
-import com.arthurcortez.javaproject.entity.CategoryEntity;
 import com.arthurcortez.javaproject.entity.RecipeEntity;
 import com.arthurcortez.javaproject.service.RecipeService;
 
 import jakarta.validation.Valid;
 
 import com.arthurcortez.javaproject.dto.CreateRecipeDto;
+import com.arthurcortez.javaproject.dto.UpdateRecipeDto;
 import com.arthurcortez.javaproject.dto.RecipePaginatedInterfaceDto;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +46,21 @@ public class RecipeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ResponseMessage> createCategory(@RequestBody @Valid CreateRecipeDto recipe) {
+    public ResponseEntity<ResponseMessage> createRecipe(@RequestBody @Valid CreateRecipeDto recipe) {
         service.createRecipe(recipe);
-        return ResponseEntity.ok(new ResponseMessage("Categoria", "Categoria criada com sucesso"));
+        return ResponseEntity.ok(new ResponseMessage("Receita", "Receita criada com sucesso"));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseMessage> updateRecipe(@RequestBody @Valid UpdateRecipeDto recipe) {
+        service.updateRecipe(recipe);
+        return ResponseEntity.ok(new ResponseMessage("Receita", "Receita editada com sucesso"));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseMessage> deleteRecipe(@PathVariable("id") String id) {
+        service.deleteRecipe(id);
+        return ResponseEntity.ok(new ResponseMessage("Receita", "Receita removida com sucesso"));
     }
 
     public class ResponseMessage {
