@@ -28,6 +28,9 @@ public class RecipeEntity {
     private String name;
     private String description;
 
+    @Column(name = "image")
+    private String image;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
     private List<IngredientEntity> ingredients = new ArrayList<>();
@@ -45,6 +48,10 @@ public class RecipeEntity {
     public RecipeEntity(String name, String description, CategoryEntity category) {
         this.name = name;
         this.description = description;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setIngredients(List<IngredientEntity> ingredients) {
