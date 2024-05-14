@@ -121,6 +121,17 @@ public class RecipeService {
                         recipeEntity.getIngredients().add(ingredient);
                 }
 
+                List<StepEntity> newSteps = recipe.steps().stream()
+                                .map(step -> {
+                                        StepEntity stepEntity = new StepEntity(step.name());
+                                        return stepEntity;
+                                })
+                                .collect(Collectors.toList());
+                recipeEntity.getSteps().removeIf(step -> !newSteps.contains(step));
+                for (StepEntity step : newSteps) {
+                        recipeEntity.getSteps().add(step);
+                }
+
                 recipeRepository.save(recipeEntity);
 
                 if (image != null && !image.isEmpty()) {
