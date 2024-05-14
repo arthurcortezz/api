@@ -29,6 +29,10 @@ public class CategorySeed implements CommandLineRunner {
             CategoryEntity category3 = new CategoryEntity();
             category3.setName("Bolos");
             categoryRepository.save(category3);
+
+            CategoryEntity category4 = new CategoryEntity();
+            category4.setName("Doces");
+            categoryRepository.save(category4);
         }
     }
 }
