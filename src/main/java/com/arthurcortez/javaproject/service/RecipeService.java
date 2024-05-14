@@ -3,6 +3,7 @@ package com.arthurcortez.javaproject.service;
 import com.arthurcortez.javaproject.dto.CreateRecipeDto;
 import com.arthurcortez.javaproject.dto.UpdateRecipeDto;
 import com.arthurcortez.javaproject.entity.RecipeEntity;
+import com.arthurcortez.javaproject.entity.StepEntity;
 import com.arthurcortez.javaproject.entity.CategoryEntity;
 import com.arthurcortez.javaproject.entity.UnityTypeEntity;
 import com.arthurcortez.javaproject.storage.StorageService;
@@ -72,7 +73,15 @@ public class RecipeService {
                                 })
                                 .collect(Collectors.toList());
 
+                List<StepEntity> steps = recipe.steps().stream()
+                                .map(step -> {
+                                        StepEntity stepEntity = new StepEntity(step.name());
+                                        return stepEntity;
+                                })
+                                .collect(Collectors.toList());
+
                 recipeEntity.setIngredients(ingredients);
+                recipeEntity.setSteps(steps);
                 recipeEntity = recipeRepository.save(recipeEntity);
 
                 if (image != null && !image.isEmpty()) {

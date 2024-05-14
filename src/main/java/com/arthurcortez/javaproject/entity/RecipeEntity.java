@@ -33,6 +33,10 @@ public class RecipeEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
+    private List<StepEntity> steps = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id")
     private List<IngredientEntity> ingredients = new ArrayList<>();
 
     @ManyToOne
