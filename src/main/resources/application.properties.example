@@ -1,0 +1,16 @@
+spring.application.name=java-project
+spring.datasource.url=jdbc:postgresql://localhost:5432/javaproject
+spring.datasource.username=root
+spring.datasource.password=root
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.jdbc.time_zone = UTC
+
+aws.region=us-east-2
+aws.secretKey=RVXxbcUjLGUjGZWEzaCeCgFWCDcq3uGBeA5T8siK
+aws.accessKeyId=AKIA5QPSSNHWUAC4GF4T
+
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
+
+jwt.secret=${JWT_SECRET:my_secret_key}
