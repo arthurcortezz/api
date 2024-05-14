@@ -18,17 +18,19 @@ public class StorageService {
         this.s3Client = s3Client;
     }
 
-    public String uploadFile(MultipartFile file) {
+    public String uploadFile(MultipartFile file, String fileName) {
         String bucketName = "javaprojectbucket";
         try {
             PutObjectRequest objectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
-                    .key(file.getOriginalFilename())
+                    .key(fileName)
                     .build();
             s3Client.putObject(objectRequest,
                     RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
             ;
-            return file.getOriginalFilename();
+            String url = String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, "us-east-2",
+                    fileName);
+            return url;
         } catch (IOException e) {
             throw new RuntimeException("Falha ao fazer upload do arquivo", e);
         }

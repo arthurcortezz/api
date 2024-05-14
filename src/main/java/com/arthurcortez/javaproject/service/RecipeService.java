@@ -5,23 +5,23 @@ import com.arthurcortez.javaproject.dto.UpdateRecipeDto;
 import com.arthurcortez.javaproject.entity.RecipeEntity;
 import com.arthurcortez.javaproject.entity.CategoryEntity;
 import com.arthurcortez.javaproject.entity.UnityTypeEntity;
+import com.arthurcortez.javaproject.storage.StorageService;
 import com.arthurcortez.javaproject.entity.IngredientEntity;
 import com.arthurcortez.javaproject.repository.RecipeRepository;
 import com.arthurcortez.javaproject.repository.CategoryRepository;
 import com.arthurcortez.javaproject.repository.UnityTypeRepository;
-import com.arthurcortez.javaproject.storage.StorageService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class RecipeService {
@@ -56,11 +56,7 @@ public class RecipeService {
                 recipeEntity.setDescription(recipe.description());
                 CategoryEntity category = categoryRepository.findById(recipe.category())
                                 .orElseThrow(() -> new RuntimeException("CategoryEntity not found"));
-                ;
                 recipeEntity.setCategory(category);
-                String imageSaved = storageService.uploadFile(image);
-                System.out.println(imageSaved);
-                recipeEntity.setImage(imageSaved);
                 recipeEntity.setCreatedAt(ZonedDateTime.now(ZoneId.of("UTC")));
                 recipeEntity.setUpdatedAt(ZonedDateTime.now(ZoneId.of("UTC")));
 
@@ -77,10 +73,21 @@ public class RecipeService {
                                 .collect(Collectors.toList());
 
                 recipeEntity.setIngredients(ingredients);
-                return recipeRepository.save(recipeEntity);
+                recipeEntity = recipeRepository.save(recipeEntity);
+
+                if (image != null && !image.isEmpty()) {
+                        String imageFileName = recipeEntity.getId();
+                        String imageSaved = storageService.uploadFile(image, imageFileName);
+                        System.out.println(imageSaved);
+                        recipeEntity.setImage(imageSaved);
+                        return recipeRepository.save(recipeEntity);
+                } else {
+                        return recipeEntity;
+                }
+
         }
 
-        public RecipeEntity updateRecipe(UpdateRecipeDto recipe) {
+        public RecipeEntity updateRecipe(UpdateRecipeDto recipe, MultipartFile image) {
                 RecipeEntity recipeEntity = recipeRepository.findById(recipe.id())
                                 .orElseThrow(() -> new RuntimeException("RecipeEntity not found"));
                 recipeEntity.setName(recipe.name());
@@ -104,7 +111,20 @@ public class RecipeService {
                 for (IngredientEntity ingredient : newIngredients) {
                         recipeEntity.getIngredients().add(ingredient);
                 }
-                return recipeRepository.save(recipeEntity);
+
+                recipeRepository.save(recipeEntity);
+
+                if (image != null && !image.isEmpty()) {
+                        String imageFileName = recipeEntity.getId();
+                        System.out.println(imageFileName);
+                        String imageSaved = storageService.uploadFile(image, imageFileName);
+                        System.out.println(imageSaved);
+                        recipeEntity.setImage(imageSaved);
+                        return recipeRepository.save(recipeEntity);
+                } else {
+                        return recipeEntity;
+                }
+
         }
 
         public void deleteRecipe(String id) {
