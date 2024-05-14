@@ -45,7 +45,7 @@ public class AuthController {
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
             var auth = this.authenticationManager.authenticate(usernamePassword);
             var token = tokenService.generateToken((UserEntity) auth.getPrincipal());
-            return ResponseEntity.ok(new LoginResponseDto(token, auth));
+            return ResponseEntity.ok(new LoginResponseDto(token, auth.getPrincipal()));
         } catch (AuthenticationException ex) {
             ErrorResponse errorResponse = new ErrorResponse("Credenciais inválidas");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
